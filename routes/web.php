@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/group-subject/{group}/{subject}', [CourseAssignmentController::class, 'getStudentsGroupSubject'])->name('students.group.subject');
     Route::post('/grade/save', [GradeController::class, 'save'])->name('grade.save');
 
+    Route::get('/my-grades', [StudentController::class, 'myGrades'])->name('my.grades');
+
 });
 
 require __DIR__.'/auth.php';

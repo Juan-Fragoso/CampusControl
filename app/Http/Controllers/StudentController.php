@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
@@ -76,5 +78,21 @@ class StudentController extends Controller
             DB::rollBack();
             return redirect()->back()->withInput()->with("error", "Error al actualizar: " . $th->getMessage());
         }
+    }
+
+    public function myGrades()
+    {
+        $student = Auth::user()->student;
+        if(!$student){ return redirect()->back()->with("error","No tienes permiso"); }
+
+        // Buscamos sus notas a través de sus inscripciones
+        $grades = Grade::whereHas('enrollment', function($query) use ($student) {
+            $query->where('student_id', $student->id);
+        })->with(['subject', 'teacher.user'])->get();
+
+        // Calculamos el promedio simple
+        $average = $grades->avg('grade_value');
+
+        return view('students.my-grades', compact('grades', 'average'));
     }
 }
