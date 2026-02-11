@@ -1,0 +1,40 @@
+<x-app-layout>
+    <x-slot name="header">
+        <a type="button" class="btn btn-primary" href="{{ route('teachers.create') }}">Agregar Maestro</a>
+    </x-slot>
+    <div class="py-2">
+
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <x-alert />
+
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($teachers as $teacher)
+                                <tr>
+                                    <td>{{ $teacher->user->name }}</td>
+                                    <td>{{ $teacher->user->email }}</td>
+                                    <td>{{ $teacher->phone }}</td>
+                                    <td>
+                                        <a href="{{ route('teachers.edit', $teacher->id) }}"
+                                            class="btn btn-sm btn-warning">Edit</a>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
