@@ -5,24 +5,15 @@
 
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-alert />
-                    <form action="{{ route('course-assignments.save') }}" method="POST" class="mb-4">
+                    <form action="{{ route('entollment.save') }}" method="POST" class="mb-4">
                         @csrf
                         <div class="row g-3">
                             <div class="col-3">
-                                <label for="teacher_id" class="form-label">Docente</label>
-                                <select class="form-select" aria-label="Docente" name="teacher_id" required>
+                                <label for="student_id" class="form-label">Estudiante</label>
+                                <select class="form-select" aria-label="Estudiante" name="student_id" required>
                                     <option value="" selected></option>
-                                    @foreach ($teachers as $teacher)
-                                        <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <label for="subject_id" class="form-label">Materia</label>
-                                <select class="form-select" aria-label="Materia" name="subject_id" required>
-                                    <option value="" selected></option>
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                    @foreach ($students as $student)
+                                        <option value="{{ $student->id }}">{{ $student->user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -45,21 +36,15 @@
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                             <tr>
-                                <th>Nombre del Docente</th>
-                                <th>Materia</th>
+                                <th>Estudiante</th>
                                 <th>Grupo</th>
-                                {{-- <th>Acción</th> --}}
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($courseAssignments as $courseAssignment)
+                            @foreach ($enrollments as $enrollment)
                                 <tr>
-                                    <td>{{ $courseAssignment->teacher->user->name }}</td>
-                                    <td>{{ $courseAssignment->subject->name }}</td>
-                                    <td>{{ $courseAssignment->group->name }}</td>
-                                    {{-- <td>
-                                        <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
-                                    </td> --}}
+                                    <td>{{ $enrollment->student->user->name }}</td>
+                                    <td>{{ $enrollment->group->name }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

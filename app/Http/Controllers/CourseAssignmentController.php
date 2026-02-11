@@ -40,7 +40,7 @@ class CourseAssignmentController extends Controller
 
             DB::commit();
 
-            return redirect()->route('course-assignments')->with('success','Asigamacion agregado exitosamente');
+            return redirect()->route('course-assignments')->with('success','Asignación Registrado');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
