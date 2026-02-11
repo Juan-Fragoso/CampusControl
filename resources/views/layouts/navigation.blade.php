@@ -10,48 +10,53 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+                @if (@Auth::user()->isAdmin())
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Home') }}
+                        </x-nav-link>
+                    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('students')" :active="request()->routeIs('students')">
-                        {{ __('Estudiantes') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('students')" :active="request()->routeIs('students')">
+                            {{ __('Estudiantes') }}
+                        </x-nav-link>
+                    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('enrollments')" :active="request()->routeIs('enrollments')">
-                        {{ __('Inscripciones') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('enrollments')" :active="request()->routeIs('enrollments')">
+                            {{ __('Inscripciones') }}
+                        </x-nav-link>
+                    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('teachers')" :active="request()->routeIs('teachers')">
-                        {{ __('Maestros') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('teachers')" :active="request()->routeIs('teachers')">
+                            {{ __('Docentes') }}
+                        </x-nav-link>
+                    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('course-assignments')" :active="request()->routeIs('course-assignments')">
-                        {{ __('Asignación de Profesores') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('course-assignments')" :active="request()->routeIs('course-assignments')">
+                            {{ __('Asignación de Profesores') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('groups.subjects')" :active="request()->routeIs('groups.subjects')">
-                        {{ __('Grupos/Materias') }}
-                    </x-nav-link>
-                </div>
+                @if (isset(Auth::user()->teacher))
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('groups.subjects')" :active="request()->routeIs('groups.subjects')">
+                            {{ __('Grupos/Materias') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+                @if (isset(Auth::user()->student))
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('my.grades')" :active="request()->routeIs('my.grades')">
+                            {{ __('Calificaciones') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('my.grades')" :active="request()->routeIs('my.grades')">
-                        {{ __('Calificaciones') }}
-                    </x-nav-link>
-                </div>
 
             </div>
 

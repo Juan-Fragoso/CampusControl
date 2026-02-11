@@ -7,7 +7,6 @@
                         <a type="button" class="btn btn-primary" href="{{ route('students.create') }}">
                             Registrar Estudiante
                         </a>
-
                     </div>
                     <x-alert />
 

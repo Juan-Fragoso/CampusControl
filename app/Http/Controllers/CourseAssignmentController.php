@@ -36,10 +36,10 @@ class CourseAssignmentController extends Controller
         try {
             DB::beginTransaction();
 
-            $course = CourseAssignment::updateOrInsert([
+            $course = CourseAssignment::updateOrCreate([
                 'subject_id'=> $request->subject_id,
                 'teacher_id'=> $request->teacher_id,
-                'group_id'=> $request->teacher_id
+                'group_id'=> $request->group_id
             ]);
 
             DB::commit();

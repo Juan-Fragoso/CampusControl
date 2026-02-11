@@ -63,4 +63,10 @@ class User extends Authenticatable
         // Relación muchos a muchos con roles (tabla role_user)
         return $this->belongsToMany(Role::class);
     }
+
+    public function isAdmin()
+    {
+        // Esto busca en la relación roles un registro donde el nombre sea 'admin'
+        return $this->roles()->where('name', 'admin')->exists();
+    }
 }
