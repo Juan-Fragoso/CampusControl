@@ -40,6 +40,23 @@
                             {{ __('Asignación de Profesores') }}
                         </x-nav-link>
                     </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('subjects')" :active="request()->routeIs('subjects')">
+                            {{ __('Materias') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
+                            {{ __('Roles') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>
+                    </div>
                 @endif
 
                 @if (isset(Auth::user()->teacher))
@@ -56,7 +73,6 @@
                         </x-nav-link>
                     </div>
                 @endif
-
 
             </div>
 

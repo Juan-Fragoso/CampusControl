@@ -4,8 +4,11 @@ use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,6 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/grade/save', [GradeController::class, 'save'])->name('grade.save');
 
     Route::get('/my-grades', [StudentController::class, 'myGrades'])->name('my.grades');
+
+    Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects');
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+
 
 });
 
