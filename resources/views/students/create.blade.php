@@ -8,33 +8,39 @@
                     <form action="{{ route('students.save') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $student->id ?? '' }}">
-                        <div class="mb-3">
-                            <label for="boleta" class="form-label">Folio</label>
-                            <input type="text" class="form-control" id="boleta" name="boleta" placeholder=""
-                                value="{{ old('boleta', $student->boleta ?? '') }}" required>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="boleta" class="form-label">Folio</label>
+                                <input type="text" class="form-control" id="boleta" name="boleta" placeholder=""
+                                    value="{{ old('boleta', $student->boleta ?? '') }}" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="name" class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder=""
+                                    value="{{ old('name', $student->user->name ?? '') }}" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="phone" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder=""
+                                    value="{{ old('phone', $student->phone ?? '') }}" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nombre completo</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder=""
-                                value="{{ old('name', $student->user->name ?? '') }}" required>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder=""
+                                    value="{{ old('email', $student->user->email ?? '') }}" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
                         </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder=""
-                                value="{{ old('email', $student->user->email ?? '') }}" required>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder=""
-                                value="{{ old('phone', $student->phone ?? '') }}" required>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
+
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <a href="{{ route('students') }}" class="btn btn-secondary">Cancelar</a>

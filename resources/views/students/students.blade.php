@@ -1,12 +1,14 @@
 <x-app-layout>
-    <x-slot name="header">
-        <a type="button" class="btn btn-primary" href="{{ route('students.create') }}">Add Student</a>
-    </x-slot>
     <div class="py-2">
-
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="mb-4 text-right">
+                        <a type="button" class="btn btn-primary" href="{{ route('students.create') }}">
+                            Registrar Estudiante
+                        </a>
+
+                    </div>
                     <x-alert />
 
                     <table class="table table-striped table-bordered">
