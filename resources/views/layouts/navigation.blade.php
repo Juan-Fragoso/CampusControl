@@ -40,6 +40,13 @@
                         {{ __('Asignación de Profesores') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('groups.subjects')" :active="request()->routeIs('groups.subjects')">
+                        {{ __('Grupos/Materias') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->

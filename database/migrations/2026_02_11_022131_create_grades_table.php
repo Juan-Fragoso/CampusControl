@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('enrollment_id')->constrained('enrollments')->onDelete('cascade');
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
             $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
-            $table->integer('grade_value')->nullable();
+            $table->decimal('grade_value', 5, 2)->nullable();
             $table->string('term')->nullable();
             $table->timestamps();
         });
