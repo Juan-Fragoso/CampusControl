@@ -44,11 +44,11 @@ class DatabaseSeeder extends Seeder
 
     public function createGroups()
     {
-        Group::create(["name" => "Grupo A", "subject_id" => 1, "period" => "2026-1", "capacity" => 30]);
-        Group::create(["name" => "Grupo B", "subject_id" => 2, "period" => "2026-1", "capacity" => 30]);
-        Group::create(["name" => "Grupo C", "subject_id" => 3, "period" => "2026-1", "capacity" => 30]);
-        Group::create(["name" => "Grupo D", "subject_id" => 4, "period" => "2026-1", "capacity" => 30]);
-        Group::create(["name" => "Grupo E", "subject_id" => 5, "period" => "2026-1", "capacity" => 30]);
+        Group::create(["name" => "Grupo A", "period" => "2026-1"]);
+        Group::create(["name" => "Grupo B", "period" => "2026-1"]);
+        Group::create(["name" => "Grupo C", "period" => "2026-1"]);
+        Group::create(["name" => "Grupo D", "period" => "2026-1"]);
+        Group::create(["name" => "Grupo E", "period" => "2026-1"]);
     }
 
     public function createUsers()
@@ -57,33 +57,30 @@ class DatabaseSeeder extends Seeder
             "name" => "Administrador",
             "email" => "admin@campuscontrol.com",
             "password" => bcrypt("admin123"),
-            "type"=> "admin",
         ]);
 
         $teacherUser = User::create([
             "name" => "Profesor",
             "email" => "profesor@campuscontrol.com",
             "password" => bcrypt("profesor123"),
-            "type"=> "teacher",
         ]);
 
         $teacher = Teacher::create([
             "user_id" => $teacherUser->id,
             "phone" => "0987654321",
-            "name"=> "Luis Perez",
+            "full_name"=> "Luis Perez",
             "employee_number" => "EMP12345",
         ]);
 
         $studentUser = User::create([
             "name" => "Estudiante",
             "password" => bcrypt("estudiante123"),
-            "type"=> "student",
             "email" => "estudiante@campuscontrol.com",
         ]);
 
         $student = Student::create([
             "user_id" => $studentUser->id,
-            "name"=> "Ricardo Reyes",
+            "full_name"=> "Ricardo Reyes",
             "phone" => "1234567890",
             "boleta" => "20260005",
         ]);

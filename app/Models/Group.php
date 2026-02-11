@@ -8,5 +8,5 @@ class Group extends Model
 {
     protected $table = 'groups';
     protected $primaryKey = 'id';
-    protected $fillable = ["name", "period", "capacity", "subject_id"];
+    protected $fillable = ["name", "period"];
 }
