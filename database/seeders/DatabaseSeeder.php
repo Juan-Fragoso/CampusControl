@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Group;
+use App\Models\Role;
+use App\Models\Student;
+use App\Models\Subject;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,11 +20,72 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->createRoles();
+        $this->createSubject();
+        $this->createGroups();
+        $this->createUsers();
+    }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+    public function createRoles()
+    {
+        Role::create(["name"=> "admin", "description" => "Administrador del sistema"]);
+        Role::create(["name"=> "student", "description" => "Cliente del sistema"]);
+        Role::create(["name"=> "teacher", "description" => "Docente del sistema"]);
+    }
+
+    public function createSubject()
+    {
+        Subject::create(["code" => "MAT", "name" => "Matemáticas"]);
+        Subject::create(["code" => "LEN", "name" => "Lengua y Literatura"]);
+        Subject::create(["code" => "SOC", "name" => "Ciencias Sociales"]);
+        Subject::create(["code" => "NAT", "name" => "Ciencias Naturales"]);
+        Subject::create(["code" => "FIS", "name" => "Educación Física"]);
+    }
+
+    public function createGroups()
+    {
+        Group::create(["name" => "Grupo A", "subject_id" => 1, "period" => "2026-1", "capacity" => 30]);
+        Group::create(["name" => "Grupo B", "subject_id" => 2, "period" => "2026-1", "capacity" => 30]);
+        Group::create(["name" => "Grupo C", "subject_id" => 3, "period" => "2026-1", "capacity" => 30]);
+        Group::create(["name" => "Grupo D", "subject_id" => 4, "period" => "2026-1", "capacity" => 30]);
+        Group::create(["name" => "Grupo E", "subject_id" => 5, "period" => "2026-1", "capacity" => 30]);
+    }
+
+    public function createUsers()
+    {
+        $user = User::create([
+            "name" => "Administrador",
+            "email" => "admin@campuscontrol.com",
+            "password" => bcrypt("admin123"),
+            "type"=> "admin",
+        ]);
+
+        $teacherUser = User::create([
+            "name" => "Profesor",
+            "email" => "profesor@campuscontrol.com",
+            "password" => bcrypt("profesor123"),
+            "type"=> "teacher",
+        ]);
+
+        $teacher = Teacher::create([
+            "user_id" => $teacherUser->id,
+            "phone" => "0987654321",
+            "name"=> "Luis Perez",
+            "employee_number" => "EMP12345",
+        ]);
+
+        $studentUser = User::create([
+            "name" => "Estudiante",
+            "password" => bcrypt("estudiante123"),
+            "type"=> "student",
+            "email" => "estudiante@campuscontrol.com",
+        ]);
+
+        $student = Student::create([
+            "user_id" => $studentUser->id,
+            "name"=> "Ricardo Reyes",
+            "phone" => "1234567890",
+            "boleta" => "20260005",
         ]);
     }
 }
