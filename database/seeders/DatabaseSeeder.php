@@ -53,34 +53,42 @@ class DatabaseSeeder extends Seeder
 
     public function createUsers()
     {
-        $user = User::create([
+        // 1. Crear los Roles básicos si no existen
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
+        $studentRole = Role::firstOrCreate(['name' => 'student']);
+
+        $adminUser = User::create([
             "name" => "Administrador",
             "email" => "admin@campuscontrol.com",
             "password" => bcrypt("admin123"),
         ]);
 
-        $teacherUser = User::create([
-            "name" => "Profesor",
-            "email" => "profesor@campuscontrol.com",
-            "password" => bcrypt("profesor123"),
-        ]);
+        // 3. Vincular el Usuario con el Rol de Admin
+        $adminUser->roles()->attach($adminRole->id);
 
-        $teacher = Teacher::create([
-            "user_id" => $teacherUser->id,
-            "phone" => "0987654321",
-            "employee_number" => "EMP12345",
-        ]);
+        // $teacherUser = User::create([
+        //     "name" => "Profesor",
+        //     "email" => "profesor@campuscontrol.com",
+        //     "password" => bcrypt("profesor123"),
+        // ]);
 
-        $studentUser = User::create([
-            "name" => "Estudiante",
-            "password" => bcrypt("estudiante123"),
-            "email" => "estudiante@campuscontrol.com",
-        ]);
+        // $teacher = Teacher::create([
+        //     "user_id" => $teacherUser->id,
+        //     "phone" => "0987654321",
+        //     "employee_number" => "EMP12345",
+        // ]);
 
-        $student = Student::create([
-            "user_id" => $studentUser->id,
-            "phone" => "1234567890",
-            "boleta" => "20260005",
-        ]);
+        // $studentUser = User::create([
+        //     "name" => "Estudiante",
+        //     "password" => bcrypt("estudiante123"),
+        //     "email" => "estudiante@campuscontrol.com",
+        // ]);
+
+        // $student = Student::create([
+        //     "user_id" => $studentUser->id,
+        //     "phone" => "1234567890",
+        //     "boleta" => "20260005",
+        // ]);
     }
 }
