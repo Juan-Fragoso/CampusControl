@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -28,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/teachers/save', [TeacherController::class, 'saveUpdate'])->name('teachers.save');
     Route::get('/teacher/edit/{id}', [TeacherController::class, 'edit'])->name('teachers.edit');
 
+    Route::get('/course-assignment', [CourseAssignmentController::class, 'index'])->name('course-assignments');
+    Route::post('/course-assignment/save', [CourseAssignmentController::class, 'save'])->name('course-assignments.save');
 
 });
 
