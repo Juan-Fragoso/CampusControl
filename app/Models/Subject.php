@@ -9,4 +9,10 @@ class Subject extends Model
     protected $table = 'subjects';
     protected $primaryKey = 'id';
     protected $fillable = ["name", "code", "credits"];
+
+    public function courseAssignments()
+    {
+        return $this->hasMany(CourseAssignment::class);
+    }
+
 }

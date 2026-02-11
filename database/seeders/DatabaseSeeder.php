@@ -68,7 +68,6 @@ class DatabaseSeeder extends Seeder
         $teacher = Teacher::create([
             "user_id" => $teacherUser->id,
             "phone" => "0987654321",
-            "full_name"=> "Luis Perez",
             "employee_number" => "EMP12345",
         ]);
 
@@ -80,7 +79,6 @@ class DatabaseSeeder extends Seeder
 
         $student = Student::create([
             "user_id" => $studentUser->id,
-            "full_name"=> "Ricardo Reyes",
             "phone" => "1234567890",
             "boleta" => "20260005",
         ]);

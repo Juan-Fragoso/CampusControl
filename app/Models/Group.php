@@ -9,4 +9,14 @@ class Group extends Model
     protected $table = 'groups';
     protected $primaryKey = 'id';
     protected $fillable = ["name", "period"];
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function courseAssignments()
+    {
+        return $this->hasMany(CourseAssignment::class);
+    }
 }
