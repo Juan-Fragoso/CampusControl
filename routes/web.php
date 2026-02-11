@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects');
     Route::get('/roles', [RoleController::class, 'index'])->name('roles');
     Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/groups', [GroupController::class,'index'])->name('groups');
 
 
 });
