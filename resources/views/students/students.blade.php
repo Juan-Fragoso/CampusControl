@@ -5,7 +5,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="mb-4 text-right">
                         <a type="button" class="btn btn-primary" href="{{ route('students.create') }}">
-                            Registrar Estudiante
+                            Registrar Alumno
                         </a>
                     </div>
                     <x-alert />
@@ -13,6 +13,7 @@
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                             <tr>
+                                <th>Boleta</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
                                 <th>Teléfono</th>
@@ -22,6 +23,7 @@
                         <tbody>
                             @foreach ($students as $student)
                                 <tr>
+                                    <td>{{ $student->boleta }}</td>
                                     <td>{{ $student->user->name }}</td>
                                     <td>{{ $student->user->email }}</td>
                                     <td>{{ $student->phone }}</td>

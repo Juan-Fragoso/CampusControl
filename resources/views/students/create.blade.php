@@ -33,15 +33,11 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    @if (!isset($student)) required @endif>
                             </div>
 
                         </div>
-
-
-
-
-
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <a href="{{ route('students') }}" class="btn btn-secondary">Cancelar</a>
                     </form>

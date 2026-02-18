@@ -10,7 +10,7 @@
                             <tr>
                                 <th>Materia</th>
                                 <th>Grupo</th>
-                                <th> Acccion</th>
+                                <th>Acccion</th>
                             </tr>
                         </thead>
                         <tbody>
