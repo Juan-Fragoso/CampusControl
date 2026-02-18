@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-dark border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,54 +6,99 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="block h-9 w-auto fill-current text-white" />
                     </a>
                 </div>
 
                 @if (@Auth::user()->isAdmin())
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('students')" :active="request()->routeIs('students')">
-                            {{ __('Alumnos') }}
-                        </x-nav-link>
-                    </div>
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <x-dropdown align="center" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="inline-flex items-center px-3 py-2 text-white text-sm  focus:outline-none transition ease-in-out duration-150">
+                                    <div>Académico</div>
+                                    <div class="ms-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('students')" :active="request()->routeIs('students')">
+                                    {{ __('Estudiantes') }}
+                                </x-dropdown-link>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('enrollments')" :active="request()->routeIs('enrollments')">
-                            {{ __('Inscripciones') }}
-                        </x-nav-link>
-                    </div>
+                                <x-dropdown-link :href="route('teachers')" :active="request()->routeIs('teachers')">
+                                    {{ __('Docentes') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('subjects')" :active="request()->routeIs('subjects')">
+                                    {{ __('Materias') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('groups')" :active="request()->routeIs('groups')">
+                                    {{ __('Grupos') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('teachers')" :active="request()->routeIs('teachers')">
-                            {{ __('Docentes') }}
-                        </x-nav-link>
-                    </div>
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                            <x-dropdown align="center" width="48">
+                                <x-slot name="trigger">
+                                    <button
+                                        class="inline-flex items-center px-3 py-2 text-white text-sm  focus:outline-none transition ease-in-out duration-150">
+                                        <div>Operaciones</div>
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('enrollments')" :active="request()->routeIs('enrollments')">
+                                        {{ __('Inscripciones') }}
+                                    </x-dropdown-link>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('course-assignments')" :active="request()->routeIs('course-assignments')">
-                            {{ __('Asignación de Profesores') }}
-                        </x-nav-link>
-                    </div>
+                                    <x-dropdown-link :href="route('course-assignments')" :active="request()->routeIs('course-assignments')">
+                                        {{ __('Asignación de Profesores') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('subjects')" :active="request()->routeIs('subjects')">
-                            {{ __('Materias') }}
-                        </x-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
-                            {{ __('Roles') }}
-                        </x-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('groups')" :active="request()->routeIs('groups')">
-                            {{ __('Grupos') }}
-                        </x-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                            {{ __('Usuarios') }}
-                        </x-nav-link>
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                            <x-dropdown align="center" width="48">
+                                <x-slot name="trigger">
+                                    <button
+                                        class="inline-flex items-center px-3 py-2 text-white text-sm  focus:outline-none transition ease-in-out duration-150">
+                                        <div>Sistema</div>
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('users')" :active="request()->routeIs('users')">
+                                        {{ __('Usuarios') }}
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link :href="route('roles')" :active="request()->routeIs('roles')">
+                                        {{ __('Roles') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
                     </div>
                 @endif
 
@@ -71,7 +116,6 @@
                         </x-nav-link>
                     </div>
                 @endif
-
             </div>
 
             <!-- Settings Dropdown -->
