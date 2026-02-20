@@ -6,7 +6,6 @@ on:
 
 env:
   APP_NAME: app-laravel
-  AWS_ROLE: aws:arn:aws:iam::${secrets.AWS_ACCOUNT_ID}:role/role-name
   AWS_REGION: us-east-1
 
 jobs:
