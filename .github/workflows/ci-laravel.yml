@@ -54,18 +54,13 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: campuscontrol
-          # Mapeamos los secrets a variables de entorno para este paso
-          DB_HOST: ${{ secrets.DB_HOST_AWS }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE_AWS }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME_AWS }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD_AWS }}
         run: |
           echo "Iniciando migraciones en la base de datos de AWS..."
           docker run --rm \
             -e DB_CONNECTION=mysql \
-            -e DB_HOST=$DB_HOST \
+            -e DB_HOST="${{ secrets.DB_HOST_AWS }}" \
             -e DB_PORT=3306 \
-            -e DB_DATABASE=$DB_DATABASE \
-            -e DB_USERNAME=$DB_USERNAME \
-            -e DB_PASSWORD=$DB_PASSWORD \
+            -e DB_DATABASE="${{ secrets.DB_DATABASE_AWS }}" \
+            -e DB_USERNAME="${{ secrets.DB_USERNAME_AWS }}" \
+            -e DB_PASSWORD="${{ secrets.DB_PASSWORD_AWS }}" \
             $ECR_REGISTRY/$ECR_REPOSITORY:latest php artisan migrate --force
