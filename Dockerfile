@@ -37,8 +37,7 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 RUN chown -R $user:www-data /var/www/storage /var/www/bootstrap/cache
 
 # 8. Cambiamos al usuario creado
-# USER $user
-USER root
+USER $user
 
 EXPOSE 80
 # Iniciamos el servidor interno de PHP escuchando en todas las interfaces por el puerto 80
