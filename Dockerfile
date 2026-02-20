@@ -12,8 +12,7 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 # 3. Apache (Tu configuración original que sí funcionaba)
 RUN a2enmod rewrite
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf
-
+RUN sed -ri -e 's!AllowOverride None!AllowOverride All!g' /etc/apache2/apache2.conf
 
 # 4. Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
