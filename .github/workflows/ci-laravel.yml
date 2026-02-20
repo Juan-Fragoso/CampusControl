@@ -38,7 +38,7 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: CampusControl # <--- DEBE coincidir con el nombre en AWS ECR
+          ECR_REPOSITORY: campuscontrol # <--- DEBE coincidir con el nombre en AWS ECR
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # Construimos la imagen usando tu Dockerfile
