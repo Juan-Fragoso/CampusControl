@@ -49,13 +49,23 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-      # 5. (OPCIONAL pero recomendado) Correr migraciones después de subir
-      # Nota: Esto solo funciona si ya tienes la DB RDS configurada en AWS
-      # - name: Run Migrations on AWS
-      #   env:
-      #     # Aquí recuperamos la URL del registro usando el ID del paso "login-ecr"
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     ECR_REPOSITORY: campuscontrol
-      #   run: |
-      #     echo "Conectando a: $ECR_REGISTRY/$ECR_REPOSITORY"
-      #     docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:latest php artisan migrate --force
+      # 6. Correr migraciones automáticamente en RDS
+      - name: Run Migrations on AWS
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: campuscontrol
+          # Mapeamos los secrets a variables de entorno para este paso
+          DB_HOST: ${{ secrets.DB_HOST_AWS }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE_AWS }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME_AWS }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD_AWS }}
+        run: |
+          echo "Iniciando migraciones en la base de datos de AWS..."
+          docker run --rm \
+            -e DB_CONNECTION=mysql \
+            -e DB_HOST=$DB_HOST \
+            -e DB_PORT=3306 \
+            -e DB_DATABASE=$DB_DATABASE \
+            -e DB_USERNAME=$DB_USERNAME \
+            -e DB_PASSWORD=$DB_PASSWORD \
+            $ECR_REGISTRY/$ECR_REPOSITORY:latest php artisan migrate --force
