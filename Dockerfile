@@ -1,44 +1,37 @@
-# 1. Usamos la imagen oficial de PHP con FPM
-FROM php:8.4-fpm
+# 1. Usamos la versión con Apache incluido (esto elimina la necesidad de Nginx en AWS)
+FROM php:8.4-apache
 
-# 2. Argumentos para definir el usuario del sistema
+# 2. Argumentos de usuario
 ARG user=jfuser
 ARG uid=1000
 
-# 3. Instalamos dependencias del sistema y extensiones de PHP
+# 3. Dependencias del sistema
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip libzip-dev
 
-# Limpiamos caché
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# 4. Extensiones PHP
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Extensiones PHP para Laravel
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# 5. Habilitar mod_rewrite para Laravel (Vital para que funcionen las rutas)
+RUN a2enmod rewrite
 
-# 4. Instalamos Composer
+# 6. Cambiar el DocumentRoot de Apache a la carpeta /public de Laravel
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf.d/*.conf
+
+# 7. Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 5. Creamos el usuario para no usar root
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && chown -R $user:$user /home/$user
+# 8. Directorio de trabajo
+WORKDIR /var/www/html
+COPY . /var/www/html
 
-# 6. Directorio de trabajo
-WORKDIR /var/www
-COPY . /var/www
-
-# 7. Instalamos dependencias de Laravel y damos permisos
+# 9. Instalamos dependencias y damos permisos
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-RUN chown -R $user:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# 8. Cambiamos al usuario creado
-USER $user
-
+# 10. Exponer puerto 80
 EXPOSE 80
-# Iniciamos el servidor interno de PHP escuchando en todas las interfaces por el puerto 80
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
+
+# Apache ya trae su propio comando de inicio, no necesitas CMD artesanal
