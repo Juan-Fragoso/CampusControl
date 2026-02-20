@@ -1,33 +1,28 @@
 services:
-  # El contenedor de tu código Laravel
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: laravel-app
-    container_name: app-laravel
+    image: campuscontrol-img
+    container_name: campus-app
     restart: unless-stopped
-    working_dir: /var/www
+    # Cambiamos /var/www a /var/www/html para que coincida con tu Dockerfile
+    working_dir: /var/www/html
+    ports:
+      - "8080:80"
     volumes:
-      - .:/var/www
+      - .:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=laravel_db
+      - DB_USERNAME=jfuser
+      - DB_PASSWORD=user_password
     depends_on:
       - db
     networks:
       - laravel-network
 
-  webserver:
-    image: nginx:alpine
-    container_name: webserver
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    volumes:
-      - .:/var/www
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - laravel-network
-
-  # El contenedor de la base de datos
   db:
     image: mysql:8.0
     container_name: db-mysql
