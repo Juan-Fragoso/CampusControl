@@ -39,5 +39,6 @@ RUN chown -R $user:www-data /var/www/storage /var/www/bootstrap/cache
 # 8. Cambiamos al usuario creado
 USER $user
 
-EXPOSE 9000
-CMD ["php-fpm"]
+EXPOSE 80
+# Iniciamos el servidor interno de PHP escuchando en todas las interfaces por el puerto 80
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
