@@ -58,6 +58,7 @@ jobs:
         run: |
           echo "Iniciando migraciones en la base de datos de AWS..."
           docker run --rm \
+            --network host \
             -e DB_CONNECTION=mysql \
             -e DB_HOST="${{ secrets.DB_HOST_AWS }}" \
             -e DB_PORT=3306 \
