@@ -52,5 +52,10 @@ jobs:
       # 5. (OPCIONAL pero recomendado) Correr migraciones después de subir
       # Nota: Esto solo funciona si ya tienes la DB RDS configurada en AWS
       - name: Run Migrations on AWS
+        env:
+          # Aquí recuperamos la URL del registro usando el ID del paso "login-ecr"
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: campuscontrol
         run: |
+          echo "Conectando a: $ECR_REGISTRY/$ECR_REPOSITORY"
           docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:latest php artisan migrate --force
