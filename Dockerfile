@@ -28,5 +28,6 @@ RUN npm install && npm run build
 
 # 6. Permisos (Crucial para evitar el Not Found)
 RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 80
