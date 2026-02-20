@@ -12,7 +12,8 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 # 3. Apache (Tu versión exacta)
 RUN a2enmod rewrite
 # IMPORTANTE: Usamos la sintaxis de espacio, no el igual, como la tenías antes
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
@@ -27,7 +28,5 @@ COPY . /var/www/html
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 RUN npm install && npm run build
 
-# 7. Permisos (Aseguramos que Apache pueda leer TODO)
-RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
